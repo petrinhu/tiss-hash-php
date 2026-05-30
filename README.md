@@ -1,16 +1,29 @@
 <!--
   AVISO: espelho read-only. NAO edite este arquivo aqui.
-  E gerado automaticamente a partir de langs/php do monorepo TISS_ANS_hash.
+  E gerado a partir de langs/php do monorepo TISS_ANS_hash.
+  Pull requests e issues vao no monorepo, nao neste repo.
 -->
 
-> **Espelho read-only.** Este repositorio e gerado automaticamente a partir de
+> **Espelho read-only.** Este repositorio e um split (gerado a partir de
 > `langs/php` do monorepo
-> [TISS_ANS_hash](https://github.com/petrinhu/TISS_ANS_hash).
+> [TISS_ANS_hash](https://github.com/petrinhu/TISS_ANS_hash)).
 > **Nao edite aqui.** Pull requests e issues devem ser abertos no monorepo.
-> Este split existe apenas para a publicacao no Packagist como
+> Este repo existe apenas como veiculo de publicacao no Packagist, o repositorio
+> oficial de pacotes PHP, como
 > [`petrinhu/tiss-hash`](https://packagist.org/packages/petrinhu/tiss-hash).
 
 # tiss-hash (PHP)
+
+[![Packagist Version](https://img.shields.io/packagist/v/petrinhu/tiss-hash)](https://packagist.org/packages/petrinhu/tiss-hash)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/petrinhu/tiss-hash)](https://packagist.org/packages/petrinhu/tiss-hash)
+[![PHP Version](https://img.shields.io/packagist/php-v/petrinhu/tiss-hash)](https://packagist.org/packages/petrinhu/tiss-hash)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> Port PHP da lib `TISS_ANS_hash`: calcula o hash MD5 do epilogo de um XML do
+> Padrao TISS/ANS (saude suplementar do Brasil). Voce passa os bytes do XML,
+> recebe os 32 caracteres do hash.
+
+## O que e (sem jargao)
 
 Calcula a "impressao digital" do trecho final de um documento TISS/ANS. Os
 termos antes do codigo:
@@ -31,57 +44,40 @@ termos antes do codigo:
 Em uma frase: voce passa os bytes de um XML TISS e recebe os 32 caracteres do
 hash. (Um **byte** e a menor unidade de dado do computador.) Este e o port PHP
 ("port" = a mesma lib reescrita em outra linguagem). Outras linguagens (Python,
-Rust, C, C++, Node.js, etc.) seguem o mesmo contrato e os mesmos vetores de
-conformidade.
+Rust, Node.js, Go, etc.) seguem o mesmo contrato e os mesmos vetores de
+conformidade, e produzem o **mesmo hash byte a byte**.
 
 Para entender o problema que a lib resolve, veja
-[`docs/USAGE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/USAGE.md) (guia de uso) e
-[`docs/ARCHITECTURE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/ARCHITECTURE.md) (conceitos e visao geral).
+[`docs/CONCEITOS.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/CONCEITOS.md) (o que e e para que serve, sem codigo) e
+[`docs/USAGE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/USAGE.md) (guia de uso).
 
-- Repositorio principal: <https://github.com/petrinhu/TISS_ANS_hash>
+- Repositorio principal (fonte de verdade): <https://github.com/petrinhu/TISS_ANS_hash>
 - Spec canonica: [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md)
 - Implementacao de referencia: [`conformance/reference.py`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/reference.py) (Python + lxml)
 - Status: **alpha**, 20/20 vetores sinteticos PASS (18 positivos + 2 negativos)
 
-## Antes de comecar: instalar o PHP e o Composer
-
-PHP e a linguagem deste port. O **Composer** e o gerenciador que baixa e instala
-bibliotecas (dependencias) de projetos PHP.
-
-- Instale o PHP pelo site oficial: <https://www.php.net/manual/pt_BR/install.php>
-  (precisa da versao 8.1 ou mais nova). Em Linux costuma estar no gerenciador de
-  pacotes da distro (ex.: `sudo dnf install php php-dom php-mbstring`).
-- Instale o Composer pelo site oficial: <https://getcomposer.org/download/>
-- Confira a instalacao:
-
-```bash
-php --version
-composer --version
-```
-
 ## Requisitos
 
-- PHP **8.1+** (testado em 8.5).
-- Extensoes: `ext-dom`, `ext-libxml`, `ext-mbstring` (todas standard na maioria das builds). Uma **extensao** e um modulo que acrescenta funcoes ao PHP; estas tres costumam ja vir habilitadas.
+- PHP **8.2+**.
+- Extensoes: `ext-dom`, `ext-libxml`, `ext-mbstring` (uma **extensao** e um
+  modulo que acrescenta funcoes ao PHP; estas tres costumam ja vir habilitadas
+  na maioria das builds).
+
+Se ainda nao tem PHP e Composer (o Composer e o gerenciador que baixa e instala
+bibliotecas de projetos PHP):
+
+- PHP: <https://www.php.net/manual/pt_BR/install.php> (em Linux costuma estar na
+  distro, ex.: `sudo dnf install php php-dom php-mbstring`).
+- Composer: <https://getcomposer.org/download/>
+- Confira: `php --version` e `composer --version`.
 
 ## Instalacao
 
-Uma **dependencia** e uma biblioteca de terceiros que o seu codigo usa; o
-Composer a baixa e instala. O comando abaixo adiciona esta lib ao seu projeto:
+Ja publicado no Packagist. Adicione a lib ao seu projeto com:
 
 ```bash
 composer require petrinhu/tiss-hash
 ```
-
-> **Nota:** ainda nao publicado no Packagist (o repositorio oficial de pacotes
-> PHP). Por enquanto, adicione o repositorio manualmente em `composer.json` ou
-> instale a partir do checkout do monorepo (a pasta que voce baixou com
-> `git clone`):
->
-> ```bash
-> composer config repositories.tiss-hash path /caminho/para/lib_hash_ans/langs/php
-> composer require petrinhu/tiss-hash:@dev
-> ```
 
 ## Quickstart
 
@@ -91,7 +87,7 @@ require 'vendor/autoload.php';
 
 use TissHash\TissHash;
 
-// A partir de bytes do arquivo
+// A partir dos bytes do arquivo
 $hash = TissHash::hashTiss(file_get_contents('lote.xml'));
 echo $hash; // ex.: "3aa0c578c95cdb861a125f480a8a4de5"
 
@@ -99,16 +95,48 @@ echo $hash; // ex.: "3aa0c578c95cdb861a125f480a8a4de5"
 $hash = TissHash::hashTissFile('lote.xml');
 ```
 
-Tratamento de erro:
+Exemplo completo com XML sintetico (nunca use XML ou hash real em exemplo ou
+log; veja a secao Privacidade):
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use TissHash\TissHash;
+
+$xml = <<<XML
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ans:mensagemTISS xmlns:ans="http://www.ans.gov.br/padroes/tiss/schemas">
+  <ans:cabecalho>
+    <ans:identificacaoTransacao>
+      <ans:tipoTransacao>ENVIO_LOTE_GUIAS</ans:tipoTransacao>
+    </ans:identificacaoTransacao>
+  </ans:cabecalho>
+  <ans:epilogo>
+    <ans:hash>00000000000000000000000000000000</ans:hash>
+  </ans:epilogo>
+</ans:mensagemTISS>
+XML;
+
+echo TissHash::hashTiss($xml); // 32 caracteres hex minusculos
+```
+
+> O conteudo de `<ans:hash>` e **zerado** antes do calculo (o hash nao entra em
+> si mesmo). Tanto faz o que estiver la dentro: o resultado e o mesmo.
+
+### Tratamento de erro
 
 ```php
 use TissHash\InvalidTissXmlException;
 use TissHash\TissHash;
 
 try {
-    $hash = TissHash::hashTiss('<isto-nao-eh-xml-valido');
+    $hash = TissHash::hashTiss($xmlBytes);
+    // usar $hash
 } catch (InvalidTissXmlException $e) {
-    error_log('falha ao parsear: ' . $e->getMessage());
+    // XML vazio, malformado, encoding fora de escopo, ou multiplos <ans:hash>.
+    // A mensagem NUNCA contem o XML original (apenas o erro tecnico do parser).
+    error_log('XML TISS invalido: ' . $e->getMessage());
 }
 ```
 
@@ -121,98 +149,126 @@ try {
 | `TissHash\TissHash::TISS_NAMESPACE` | constante | URI do namespace TISS (`http://www.ans.gov.br/padroes/tiss/schemas`). |
 | `TissHash\InvalidTissXmlException` | classe | Excecao (subclasse de `\RuntimeException`) para XML malformado, vazio ou rejeitado por politica de seguranca. |
 
-## Algoritmo
+> Passe sempre os **bytes crus** do XML (o resultado de `file_get_contents()`).
+> A lib controla o encoding internamente; nao "conserte" o XML antes de chamar.
 
-Resumo do que `TissHash::hashTiss` faz:
+## Contrato de rejeicao
+
+O que a lib aceita e o que recusa:
+
+| Entrada | Comportamento |
+| --- | --- |
+| XML bem-formado com 1 `<ans:hash>` | retorna hash de 32 chars |
+| XML bem-formado **sem** `<ans:hash>` | **valido**: concatena tudo, sem erro |
+| **Multiplos** `<ans:hash>` | **erro** `InvalidTissXmlException` (TISS preve exatamente 1; nao adivinhar qual zerar) |
+| Encoding **UTF-16 / UTF-32** (detectado por BOM) | **erro** (fora de escopo; so ISO-8859-1 e UTF-8) |
+| XML malformado / bytes vazios | **erro** `InvalidTissXmlException` |
+
+Entidade externa (XXE) e sempre bloqueada. Detalhe das decisoes em
+[`conformance/AMBIGUITY_NOTES.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/AMBIGUITY_NOTES.md).
+
+## Algoritmo (resumo)
+
+O que `TissHash::hashTiss` faz:
 
 1. Parseia o XML com `DOMDocument`, endurecido contra XXE
-   (`libxml_set_external_entity_loader` + flag `LIBXML_NONET`).
-2. Zera o conteudo de `<ans:hash>` (namespace
-   `http://www.ans.gov.br/padroes/tiss/schemas`).
+   (`libxml_set_external_entity_loader` + `LIBXML_NONET`).
+2. Zera o conteudo de `<ans:hash>` (casado pela URI do namespace
+   `http://www.ans.gov.br/padroes/tiss/schemas` + nome local `hash`, nao pelo
+   prefixo literal `ans:`).
 3. Concatena o texto de cada no-folha (Element ou Comment sem filhos
-   Element/Comment/PI) em ordem de documento.
+   Element/Comment/PI) em ordem de documento, sem separador.
 4. Calcula MD5 sobre os bytes **UTF-8** da string resultante.
 5. Devolve o `md5()` minusculo (32 caracteres).
 
-**Atencao:** o encoding dos bytes alimentados ao MD5 e **UTF-8**, NAO
-ISO-8859-1. O manual TISS afirma o contrario, mas o valor validado contra
-goldens reais (privados, fora do repo) e os vetores sinteticos publicos e
-UTF-8.
-
-Especificacao canonica completa: [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md).
-
-Catalogo de 15 ambiguidades canonicas que cada port deve reproduzir:
-[`conformance/AMBIGUITY_NOTES.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/AMBIGUITY_NOTES.md).
+**Atencao (a pegadinha que quebra quem reimplementa):** os bytes alimentados ao
+MD5 sao **UTF-8, NAO ISO-8859-1**. O manual oficial do Padrao TISS diz
+"ISO-8859-1", mas isso se refere ao encoding do arquivo, nao dos bytes que
+alimentam o MD5. Calcular MD5 sobre bytes ISO-8859-1 gera um hash que a ANS
+**rejeita**. O valor validado contra goldens reais (privados, fora do repo) e
+contra os vetores sinteticos publicos e UTF-8. Especificacao canonica completa:
+[`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md).
 
 ## Conformidade
 
 "Conformidade" significa provar que este port produz o mesmo hash da
-implementacao oficial em todos os casos previstos. Cada **vetor** e um par
-"arquivo de entrada -> hash esperado": positivo deve produzir um hash, negativo
-deve ser rejeitado (a lib precisa recusar o arquivo, em vez de inventar um hash).
+implementacao de referencia em todos os casos previstos. Cada **vetor** e um par
+"entrada -> resultado esperado": positivo deve produzir um hash, negativo deve
+ser rejeitado (a lib precisa recusar o arquivo, em vez de inventar um hash).
 
-20/20 vetores sinteticos do manifesto publico (`conformance/vectors.json`):
-18 positivos + 2 negativos. A lista canonica vive em
-`conformance/vectors.json`.
+20/20 vetores sinteticos do manifesto publico
+([`conformance/vectors.json`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/vectors.json)):
+18 positivos + 2 negativos, cobrindo acentuacao (discriminador UTF-8 vs
+ISO-8859-1), CR/LF dentro de valor, CDATA, entidades XML, comentarios,
+atributos, namespaces, BOM UTF-8, whitespace puro, leading zeros, simbolos
+ISO-8859-1, multi-guia e documento grande (~600 KB). Os 2 negativos esperam
+erro: multiplos `<ans:hash>` e UTF-16. Encodings suportados: ISO-8859-1 e UTF-8.
 
-| Vetor | Cobre |
-| --- | --- |
-| `syn_minimal.xml` | cabecalho + epilogo, hash zerado sobrescrito |
-| `syn_acento.xml` | discriminador UTF-8 vs ISO-8859-1 |
-| `syn_empty.xml` | `<x></x>` e `<x/>` equivalentes |
-| `syn_crlf_value.xml` | CR/LF preservado dentro de valor |
-| `syn_multi_guia.xml` | ordem de documento |
-| `syn_entidades_xml.xml` | `&amp;`, `&lt;` etc. decodificadas |
-| `syn_entidade_numerica.xml` | entidades numericas (`&#nn;`) decodificadas |
-| `syn_cdata.xml` | CDATA = texto literal |
-| `syn_comentario.xml` | comentario XML ENTRA no concat |
-| `syn_atributo_folha.xml` | atributos NAO entram |
-| `syn_namespace_xsi.xml` | prefixo de namespace irrelevante |
-| `syn_default_ns.xml` | namespace default (sem prefixo) |
-| `syn_sem_hash.xml` | documento sem `<ans:hash>` (valido) |
-| `syn_whitespace_puro.xml` | espacos puros preservados |
-| `syn_leading_zero.xml` | zeros a esquerda mantidos |
-| `syn_iso8859_simbolos.xml` | `grau`, `paragrafo`, `meio`, `micro` validos em ISO-8859-1 |
-| `syn_perf_grande.xml` | ~600KB, ~1500 guias |
-| `syn_bom_utf8.xml` | BOM UTF-8 aceito |
+O hash de exemplo publico e o do vetor sintetico `syn_minimal.xml`:
+`3aa0c578c95cdb861a125f480a8a4de5` (dado ficticio deste projeto, seguro para
+reproduzir).
 
-Mais 2 vetores **negativos** (esperam erro): `syn_multi_hash.xml`
-(multiplos `<ans:hash>` -> rejeitado) e `syn_utf16.xml` (UTF-16 fora de
-escopo -> rejeitado). Encodings suportados: ISO-8859-1 e UTF-8.
+## Familia tiss-hash (outros ports e registries)
 
-Rodar os testes localmente, a partir da raiz do repositorio (a pasta que voce
-baixou com `git clone`):
+A lib e multi-linguagem (13 ports, todos com o **mesmo hash byte a byte**). Os
+ports ja publicados em registry de pacotes:
 
-```bash
-cd langs/php
-composer install   # baixa as dependencias de teste
-composer test      # roda os 20 vetores de conformidade
-```
+| Linguagem | Pacote | Registry |
+| --- | --- | --- |
+| PHP | `petrinhu/tiss-hash` | [Packagist](https://packagist.org/packages/petrinhu/tiss-hash) |
+| Python | `tiss-hash` | [PyPI](https://pypi.org/project/tiss-hash/) |
+| Node.js | `tiss-hash` | [npm](https://www.npmjs.com/package/tiss-hash) |
+| Rust | `tiss-hash` | [crates.io](https://crates.io/crates/tiss-hash) |
+| Go | `github.com/petrinhu/TISS_ANS_hash` | [pkg.go.dev](https://pkg.go.dev/) |
 
-Saida esperada: `OK (... tests)`: 20 vetores de conformidade (data
-provider) mais testes auxiliares de API.
+Os demais ports (C, C++, Java, C#, Kotlin, Delphi/Object Pascal, Dart, WASM)
+buildam do fonte no monorepo. Repositorios da familia:
 
-## Seguranca
+- Monorepo (fonte de verdade), GitHub: <https://github.com/petrinhu/TISS_ANS_hash>
+- Monorepo, mirror Codeberg: <https://codeberg.org/petrinhu/TISS_ANS_hash>
 
-- **XXE**: `libxml_set_external_entity_loader(fn() => null)` antes do
-  parse; `LIBXML_NONET` proibe acesso a rede.
-- **PHP 8.4 compat**: `libxml_disable_entity_loader()` foi removida
-  nessa versao; este port usa a API moderna.
-- **PII em mensagens de erro**: a `InvalidTissXmlException` nunca
-  contem o XML original, apenas o erro tecnico do parser
-  (linha/coluna/sintaxe). Logs de chamadores devem manter o mesmo cuidado.
+## Privacidade (LGPD)
+
+Mensagens TISS contem **dados pessoais sensiveis de saude** (Lei 13.709/2018,
+art. 5o, II): nome, CPF, carteirinha, diagnostico, procedimentos. Esta lib
+**apenas calcula um hash em memoria**: nao transmite, nao persiste, nao registra
+o conteudo. Mesmo assim, quem integra a lib e responsavel pelo tratamento:
+
+- Nunca logar, imprimir, persistir ou transmitir o conteudo do XML real.
+- Nunca expor o **hash de um XML real** (e PII indireta: identifica o lote).
+- Nunca expor o numero da versao do Padrao TISS nem o nome da operadora.
+- Em codigo, log ou exemplo, use apenas o hash sintetico
+  `3aa0c578c95cdb861a125f480a8a4de5`.
+- A `InvalidTissXmlException` nunca inclui o XML original, so o erro tecnico do
+  parser (linha/coluna/sintaxe). Mantenha o mesmo cuidado nos seus logs.
+
+Detalhamento: [`docs/legal/LGPD-NOTE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/legal/LGPD-NOTE.md).
+
+## E uma IA / agente usando esta lib?
+
+Leia o [`AGENTS.md`](AGENTS.md): regra no 1 (nao reimplemente o algoritmo, use
+`composer require petrinhu/tiss-hash`), contrato de rejeicao, como validar
+contra os vetores do monorepo e as obrigacoes de privacidade (LGPD) ao manipular
+XML TISS.
+
+## Documentacao
+
+- [Wiki deste repo](https://github.com/petrinhu/tiss-hash-php/wiki): visao geral e como usar (Composer).
+- [`AGENTS.md`](AGENTS.md): guia para IA/agente que usa a lib.
+- [`docs/USAGE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/USAGE.md): guia de uso, receitas e FAQ (no monorepo).
+- [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md): especificacao canonica do algoritmo (no monorepo).
+- [`docs/CONCEITOS.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/CONCEITOS.md): o que e e para que serve, sem codigo (no monorepo).
+- [`docs/PORTING_GUIDE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/PORTING_GUIDE.md): como portar para outra linguagem (no monorepo).
+
+## Contribuindo
+
+Este repo e read-only. Para reportar bug, sugerir melhoria ou imprecisao na spec
+ou nos vetores, abra issue ou pull request **no monorepo**:
+
+- GitHub: <https://github.com/petrinhu/TISS_ANS_hash/issues>
+- Codeberg: <https://codeberg.org/petrinhu/TISS_ANS_hash/issues>
 
 ## Licenca
 
-[MIT](LICENSE).
-
-## Ver também
-
-- [`docs/USAGE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/USAGE.md): guia de uso, receitas e perguntas
-  frequentes (comece por aqui se voce quer so usar a lib).
-- [`docs/ARCHITECTURE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/ARCHITECTURE.md): conceitos e visao geral.
-- [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md): especificacao canonica do algoritmo.
-- [`docs/PORTING_GUIDE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/PORTING_GUIDE.md): guia para portar para
-  outras linguagens.
-- [`conformance/reference.py`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/reference.py): implementacao de
-  referencia (o "oraculo" que define a resposta certa).
+[MIT](LICENSE). Uso livre, comercial e nao-comercial, com manutencao do aviso de
+copyright.
