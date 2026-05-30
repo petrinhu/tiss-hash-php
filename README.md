@@ -1,3 +1,15 @@
+<!--
+  AVISO: espelho read-only. NAO edite este arquivo aqui.
+  E gerado automaticamente a partir de langs/php do monorepo TISS_ANS_hash.
+-->
+
+> **Espelho read-only.** Este repositorio e gerado automaticamente a partir de
+> `langs/php` do monorepo
+> [TISS_ANS_hash](https://github.com/petrinhu/TISS_ANS_hash).
+> **Nao edite aqui.** Pull requests e issues devem ser abertos no monorepo.
+> Este split existe apenas para a publicacao no Packagist como
+> [`petrinhu/tiss-hash`](https://packagist.org/packages/petrinhu/tiss-hash).
+
 # tiss-hash (PHP)
 
 Calcula a "impressao digital" do trecho final de um documento TISS/ANS. Os
@@ -23,12 +35,12 @@ Rust, C, C++, Node.js, etc.) seguem o mesmo contrato e os mesmos vetores de
 conformidade.
 
 Para entender o problema que a lib resolve, veja
-[`docs/USAGE.md`](../../docs/USAGE.md) (guia de uso) e
-[`docs/ARCHITECTURE.md`](../../docs/ARCHITECTURE.md) (conceitos e visao geral).
+[`docs/USAGE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/USAGE.md) (guia de uso) e
+[`docs/ARCHITECTURE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/ARCHITECTURE.md) (conceitos e visao geral).
 
 - Repositorio principal: <https://github.com/petrinhu/TISS_ANS_hash>
-- Spec canonica: [`docs/SPEC.md`](../../docs/SPEC.md)
-- Implementacao de referencia: [`conformance/reference.py`](../../conformance/reference.py) (Python + lxml)
+- Spec canonica: [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md)
+- Implementacao de referencia: [`conformance/reference.py`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/reference.py) (Python + lxml)
 - Status: **alpha**, 20/20 vetores sinteticos PASS (18 positivos + 2 negativos)
 
 ## Antes de comecar: instalar o PHP e o Composer
@@ -127,10 +139,10 @@ ISO-8859-1. O manual TISS afirma o contrario, mas o valor validado contra
 goldens reais (privados, fora do repo) e os vetores sinteticos publicos e
 UTF-8.
 
-Especificacao canonica completa: [`docs/SPEC.md`](../../docs/SPEC.md).
+Especificacao canonica completa: [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md).
 
 Catalogo de 15 ambiguidades canonicas que cada port deve reproduzir:
-[`conformance/AMBIGUITY_NOTES.md`](../../conformance/AMBIGUITY_NOTES.md).
+[`conformance/AMBIGUITY_NOTES.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/AMBIGUITY_NOTES.md).
 
 ## Conformidade
 
@@ -196,11 +208,11 @@ provider) mais testes auxiliares de API.
 
 ## Ver também
 
-- [`docs/USAGE.md`](../../docs/USAGE.md): guia de uso, receitas e perguntas
+- [`docs/USAGE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/USAGE.md): guia de uso, receitas e perguntas
   frequentes (comece por aqui se voce quer so usar a lib).
-- [`docs/ARCHITECTURE.md`](../../docs/ARCHITECTURE.md): conceitos e visao geral.
-- [`docs/SPEC.md`](../../docs/SPEC.md): especificacao canonica do algoritmo.
-- [`docs/PORTING_GUIDE.md`](../../docs/PORTING_GUIDE.md): guia para portar para
+- [`docs/ARCHITECTURE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/ARCHITECTURE.md): conceitos e visao geral.
+- [`docs/SPEC.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/SPEC.md): especificacao canonica do algoritmo.
+- [`docs/PORTING_GUIDE.md`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/docs/PORTING_GUIDE.md): guia para portar para
   outras linguagens.
-- [`conformance/reference.py`](../../conformance/reference.py): implementacao de
+- [`conformance/reference.py`](https://github.com/petrinhu/TISS_ANS_hash/blob/main/conformance/reference.py): implementacao de
   referencia (o "oraculo" que define a resposta certa).
